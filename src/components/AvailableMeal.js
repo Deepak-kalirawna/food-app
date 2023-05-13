@@ -11,6 +11,7 @@ import MealsItems from "./MealsItems";
 // ];
 
 function AvailableMeal() {
+  const [httpError, setHttpError] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [meals, setMeals] = useState([]);
   useEffect(() => {
@@ -18,6 +19,9 @@ function AvailableMeal() {
       const response = await fetch(
         "https://react-http-45ad2-default-rtdb.firebaseio.com/meals.json"
       );
+      if (!response.ok) {
+        throw new Error("Something went wrong!!!");
+      }
       const responseData = await response.json();
       // console.log(responseData["m1"]);
       const loadedMeals = [];
@@ -33,7 +37,11 @@ function AvailableMeal() {
       setMeals(loadedMeals);
       setIsLoading(false);
     };
-    fetchMeals();
+
+    fetchMeals().catch((error) => {
+      setIsLoading(false);
+      setHttpError(error.message);
+    });
   }, []);
   const mealsList = meals.map((item) => (
     <MealsItems
@@ -48,6 +56,13 @@ function AvailableMeal() {
     return (
       <section className={classes.mealsLoading}>
         <h1>Loading ...</h1>
+      </section>
+    );
+  }
+  if (httpError) {
+    return (
+      <section className={classes.mealsEror}>
+        <h1>{httpError}</h1>
       </section>
     );
   }
