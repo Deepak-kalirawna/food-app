@@ -1,9 +1,11 @@
 import CartContext from "./cart-context";
 import { useReducer } from "react";
+
 const defaultCartState = {
   items: [],
   totalAmount: 0,
 };
+
 const cartReducer = (state, action) => {
   if (action.type === "ADD") {
     const updatedTotalAmount =
