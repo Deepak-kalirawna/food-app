@@ -29,3 +29,22 @@
 .button:active .badge {
   background-color: #92320c;
 }
+
+@media (max-width: 550px) {
+  .button {
+    padding: 0.5rem 2rem;
+    border-radius: 15px;
+  }
+}
+
+@media (max-width: 450px) {
+  .button {
+    padding: 6px 1rem;
+    border-radius: 15px;
+  }
+  .badge {
+    padding: 0.1rem 0.5rem;
+    border-radius: 15px;
+    margin-left: 0.5rem;
+  }
+}
